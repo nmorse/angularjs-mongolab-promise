@@ -32,9 +32,19 @@ angular.module('mongolabResourceHttp', []).factory('$mongolabResourceHttp', ['MO
         return undefined;
       });
     };
+    
+    var isEmpty = function(o) {
+        var t = typeof o, key;
+        if (t == 'object') {
+            for(key in o) {
+                return false;
+            }
+        }
+        return true;
+    };
 
     var preparyQueryParam = function(queryJson) {
-      return angular.isObject(queryJson)&&!angular.equals(queryJson,{}) ? {q:JSON.stringify(queryJson)} : {};
+      return angular.isObject(queryJson)&&!isEmpty(queryJson) ? {q:JSON.stringify(queryJson)} : {};
     };
 
     var Resource = function (data) {
